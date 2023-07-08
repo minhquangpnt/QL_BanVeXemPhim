@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "LichSuDV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Lịch sử đặt vé</h2>
+
+@if (Model == null || Model.Count == 0)
+{
+    <p class="text-info text-center">
+        Lịch sử của bạn rỗng!
+    </p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Hình</th>
+                        <th>Tên phim</th>
+                        <th>Giá</th>
+                        <th>Mã Phòng</th> 
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td class="text-center"><img src="~/Content/Photos/SanPham/@item.Image" width="70" height="60" /> </td>
+                            <td><a target="_blank" href="@Url.Action("MovieDetail", "Home", new { id = item.MovieName })"> @item.Price </a> </td>
+                            <td>
+                                <form action="@Url.Action("MovieDetail", "Home")" method="get">
+                                    <input type="hidden" name="RoomID" value="@item.RoomID" />
+                                    <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
+                                </form>
+                            </td>
+                            <td> @item.DonGia.ToString("#,##0").Replace(',', '.') VNĐ </td>
+                            <td> @item.ThanhTien.ToString("#,##0").Replace(',', '.') VNĐ </td>
+
+                            <td> <a href="@Url.Action("XoaKhoiGio",new { SanPhamID = @item.MovieID})" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');" class="btn btn-danger btn-sm">Xóa</a> </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+}

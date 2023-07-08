@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-color: #003;
+            color: #fff;
+        }
+
+        nav div ul li a:hover {
+            color: #090;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+            background-color: black;
+        }
+
+        .container .search {
+            margin-right: 300px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="Menu">
+        <nav class="navbar navbar-expand navbar-light" height="250px" style="background-color:#003366;">
+            <div class="container">
+                <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Content/HinhAnh/logo.png" width="180" height="70" class="rounded" /></a>
+                <div class="search">
+                    @Html.Partial("_Layout1")
+                </div>
+
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand navbar-light" style="background-color:#191919; ">
+            <div class=" container collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav navbar-nav mx-5">
+                        <a class="nav-link active" aria-current="true" href="@Url.Action("Index","Home")" style="color:#CCC;">Trang chủ</a>
+                    </li>
+                    <li class="nav navbar-nav mx-5">
+                        <a class="nav-link active" aria-current="true" href="@Url.Action("Index","QuanLyMovie")" style="color:#CCC;"> Quản lý phim</a>
+                    </li>
+                    <li class="nav-item dropdown mx-5">
+                        @*<a class=" nav-link active" href="#" id="navbardrop" data-toggle="dropdown" style="color:#CCC">Quản lý phòng</a>*@
+                    </li>
+                    <li class="nav navbar-nav mx-5">
+                        @*<a class="nav-link active" aria-current="true" href="#" style="color:#CCC;"> Quản lý</a>*@
+                    </li>
+
+                    <li class="nav navbar-nav mx-5">
+                        @{
+                            if (Session["username"] != null)
+                            {
+                            <li class="nav navbar-nav mx-5" style="color:white">
+                                <b>Chào,@Session["username"]</b>
+                            </li>
+
+                            <li class="nav navbar-nav">
+                                <a href="/Admin/Thoat"><b>Logout</b></a>
+                            </li>
+
+                            }
+                            else
+                            {
+                                <li class="nav navbar-nav mx-5">
+                                    <a href="@Url.Action("DangKy","Admin")" class="btn btn-outline-primary">Sign Up</a>
+                                </li>
+                                <li class="nav navbar-nav">
+                                    <a href="@Url.Action("DangNhap","Admin")" class="btn btn-outline-primary">Login</a>
+                                </li>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div id="Content" class="container mt-2 mb-2">
+        <div class="row">
+            <div class="col-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <div>
+
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
